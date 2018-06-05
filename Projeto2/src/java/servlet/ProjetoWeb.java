@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package servlet;
 
 import java.io.IOException;
@@ -32,11 +27,12 @@ public class ProjetoWeb extends HttpServlet {
         boolean adm = false;
         int ucod = 0;
         String nome = "";
+        Usuario user = null;
         
         Connection con = ConnectionFactory.getConnection();
         
         try {
-            String q = "SELECT usu_login,usu_senha,usu_adm,usu_nome FROM usuario WHERE usu_login LIKE ? and usu_senha LIKE ?";
+            String q = "SELECT * FROM usuario WHERE usu_login LIKE ? and usu_senha LIKE ?";
             PreparedStatement ps = con.prepareStatement(q);
             ps.setString(1, login);
             ps.setString(2, senha);
@@ -49,6 +45,7 @@ public class ProjetoWeb extends HttpServlet {
                 ucod = rs.getInt("usu_codigo");
                 nome = rs.getString("usu_nome");
                 System.out.println("usuario encontrado!");
+                
             }    
         } catch (Exception e) {
             e.printStackTrace();

@@ -24,6 +24,12 @@
 		width: 100%;
 		height: 100%;
 	}
+	a{
+		color:black;
+	}
+	a:hover{
+		color:blue;
+	}
 	.fml{
 		width: 25%;
 		margin: 0 auto;
@@ -77,8 +83,7 @@
 				<h1>Senha</h1>
 				<input class="formu" type="password" name="senha" placeholder="Senha">
 				<input class="bot" type="submit" value="Entrar">
-				<h3>Novo por aqui? faça seu cadastro já:</h3>
-				<a href="./cadastro.jsp"><input class="bot" type="button" value="Cadastro"></a>
+				<a href="./cadastro.jsp"><h3>Novo por aqui? faça seu cadastro já!</h3></a>
 			</form>		
 		
 	</section>

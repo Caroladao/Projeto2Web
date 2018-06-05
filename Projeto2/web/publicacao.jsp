@@ -202,7 +202,7 @@
 			<label class="lbl">Descrição:</label>
 			<input class="cmp2" type="text-area" name="descricao" required><br>
 			<label class="lbl">Foto ou Video</label>
-			<input class="cmp3" type="file" name="arquivo" accept="image/*"> <br>
+                        <input class="cmp3" type="file" name="arquivo"   accept="imagens/*"> <br>
 			<input class="cmp4" type="submit" value="Publicar">
 		</form>
 

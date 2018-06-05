@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package servlet;
 
 /**
@@ -15,18 +11,28 @@ public class Usuario {
     private String nome;
     private String email;
     private String endereco;
+    private int codigo;
     private boolean adm;
     
     public Usuario(){
     }
-    
-    public Usuario(String login,String senha, String nome, String email, String endereco, boolean adm){
+
+    public Usuario(String login, String senha, String nome, String email, String endereco, int codigo, boolean adm) {
         this.login = login;
         this.senha = senha;
         this.nome = nome;
         this.email = email;
         this.endereco = endereco;
+        this.codigo = codigo;
         this.adm = adm;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
     
     public String getLogin() {
