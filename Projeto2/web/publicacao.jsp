@@ -196,13 +196,13 @@
 	</section>
 	<section class="section2">
 		<p>O que você está afim de publicar hoje?</p>
-		<form class="form" method="post" action="./publicar" enctype="multipart/form-data">
+		<form class="form" method="post" action="./UploadServlet" enctype="multipart/form-data">
 			<label class="lbl">Titulo:</label>
 			<input class="cmp1" type="text" name="titulo" required autofocus ><br>
 			<label class="lbl">Descrição:</label>
 			<input class="cmp2" type="text-area" name="descricao" required><br>
 			<label class="lbl">Foto ou Video</label>
-                        <input class="cmp3" type="file" name="arquivo"   accept="imagens/*"> <br>
+                        <input class="cmp3" type="file" name="file"   accept="imagens/*"> <br>
 			<input class="cmp4" type="submit" value="Publicar">
 		</form>
 

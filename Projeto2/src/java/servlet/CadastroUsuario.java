@@ -45,7 +45,8 @@ public class CadastroUsuario extends HttpServlet {
             
             op = true;
             out.println("usuario cadastrado!");
-                
+            
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

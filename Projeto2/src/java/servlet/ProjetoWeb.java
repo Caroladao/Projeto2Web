@@ -47,6 +47,8 @@ public class ProjetoWeb extends HttpServlet {
                 System.out.println("usuario encontrado!");
                 
             }    
+            rs.close();
+            ps.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

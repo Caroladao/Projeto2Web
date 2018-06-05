@@ -8,16 +8,18 @@ public class Publicacao {
     private String descricao,
             titulo,            
             Arquivo;
-    private int codigo;
+    private int codigo, 
+            usuario;
 
     public Publicacao() {
     }
 
-    public Publicacao(String titulo, String descricao, String Arquivo, int codigo) {
+    public Publicacao(int codigo, String titulo, String descricao, String Arquivo,int usuario) {
+        this.codigo = codigo;
         this.titulo = titulo;
         this.descricao = descricao;
         this.Arquivo = Arquivo;
-        this.codigo = codigo;
+        this.usuario = usuario;
     }
 
     public String getTitulo() {
@@ -50,6 +52,13 @@ public class Publicacao {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+
+    public int getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(int usuario) {
+        this.usuario = usuario;
     }
     
     
