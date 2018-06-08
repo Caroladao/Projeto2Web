@@ -214,15 +214,7 @@
                     <li><a href="./Logout">Sair</a></li>
                 </ul>
             </nav>
-            <nav class="menu2">
-                <img class="btn" src="images/btn.png">
-                <ul>
-                    <li><a href="./home.jsp">Home</a></li>
-                    <li><a href="./cadastroo.jsp">Cadastro</a></li>
-                    <li><a href="./publicacao.jsp">Publicar</a></li>
-                    <li><a href="./Logout">Sair</a></li>
-                </ul>
-            </nav>
+            
             <center><div class="id">
                     <b> ${sessionScope.login}</b>
                 </div></center>
@@ -236,7 +228,7 @@
         <section class="section2">
             <p class="pp"><b>Publicações</b></p>
             <hr>
-            <form action=" " method="post">
+            <form action="./busca.jsp" method="get">
                 <div class="container">  
                     <input type="search" class="busca" name="q" placeholder="Busca...">
                     <button class="btnn" type="submit"><img class="imgbusca" src="images/search.png"></button>
@@ -244,73 +236,32 @@
 
             </form>
             <hr>
-            <%
+
+            <%  
                 Connection con = ConnectionFactory.getConnection();
-                int cont = 0;
                 try {
-                    String q = "SELECT count(*) AS cntd FROM publicacao";
-                    PreparedStatement ps = con.prepareStatement(q);
-
+                    PreparedStatement ps = con.prepareStatement("SELECT * FROM publicacao");
+                    
+                    System.out.println("passei aqui");
                     ResultSet rs = ps.executeQuery();
-                    if (rs.next()) {
-                        cont = rs.getInt("cntd");
-                        System.out.println("Quantidade "+cont);
-                    }
-                    rs.close();
-                    ps.close();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-                Publicacao pub[] = new Publicacao[cont];
-                int ct = 0,cod,usuario;
-                String titulo, descricao,arquivo;
-
-                
-                    try {
-                        String q = "SELECT * FROM publicacao";
-                        PreparedStatement ps = con.prepareStatement(q);
-
-                        ResultSet rs = ps.executeQuery();
-                        while(rs.next()) {
-                                                        
-                            cod = rs.getInt("pub_codigo");
-                            titulo = rs.getString("pub_titulo");
-                            descricao = rs.getString("pub_texto");
-                            arquivo = rs.getString("pub_arquivo");
-                            usuario = rs.getInt("usu_codigo");
-                            
-                            pub[ct] = new Publicacao(cod,titulo,descricao,arquivo,usuario);
-                            System.out.println("publicacao!");
-                            ct++;
+                    while (rs.next()) {
+                        %>  <div class="publ">
+                                <p class="p1"><%=rs.getString("pub_titulo")%></p>
+                                <p class="p2"><%=rs.getString("pub_texto")%></p>
+                            <%  String cam, aux = rs.getString("pub_arquivo");
+                                int n = aux.lastIndexOf("web");
+                                n = n + 3;
+                                cam = aux.substring(n);
+                            %>
+                            <img class="imp" src=".<%=cam%>" >
+                            </div>
+                            <%
                         }
                         rs.close();
                         ps.close();
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }
-                
-                
-                for(ct = 0; ct<cont ; ct++){    
-                %>
-
-            <div class="publ">
-                <p class="p1"><%= pub[ct].getTitulo() %></p>
-                <p class="p2"><%=pub[ct].getDescricao() %></p>
-                <%
-                    String cam,aux = pub[ct].getArquivo();
-                    int n = aux.lastIndexOf("web");
-                    n = n + 3;
-                    cam = aux.substring(n);
-                %>
-
-                <img class="imp" src=".<%=cam%>" >
-            </div>
-                <%}
-                %>
-
+                    };%>
         </section>
-
     </body>
 </html>

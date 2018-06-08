@@ -32,7 +32,15 @@
 		background-size: cover;
 		width: 100%;
 		height: 70%;
-	}        
+	}       
+        .section1 h3{
+                color:white;
+                text-align: center;
+        }
+        .section1 h3:hover{
+                color:red;
+                font-weight: bolder;
+        }
 	.menu ul{
 		margin: 0 auto;
 		font-size: 14pt;
@@ -195,7 +203,8 @@
             </button></center>
             <br>
 			<h1>Cadastro:</h1>
-			<p>Se você está nessa pagina você está prestes a fazer um cadastro</p>		
+			<p>Se você está nessa pagina você está prestes a fazer um cadastro</p>	
+                        <h3>${sessionScope.mensagem}</h3>
 	</section>
 
 	<section class="section2">

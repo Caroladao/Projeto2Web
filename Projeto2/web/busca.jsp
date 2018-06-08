@@ -1,5 +1,5 @@
 <%-- 
-    Document   : home
+    Document   : busca
     Created on : 31/05/2018, 16:27:41
     Author     : carol
 --%>
@@ -14,6 +14,8 @@
     if (!session.getAttribute("logado").equals("true")) {
         response.sendRedirect("./index.jsp");
     }
+    String busca = request.getParameter("q");
+    System.out.println("Busca " + busca);
 %>
 <!DOCTYPE html>
 <html>
@@ -52,12 +54,6 @@
         .menu ul li a:hover{
             font-weight:bolder;
             color:black;
-        }
-        .menu2 ul{
-            display: none;
-        }
-        .btn{
-            display: none;
         }
         .id{
             text-align: center;
@@ -214,7 +210,7 @@
                     <li><a href="./Logout">Sair</a></li>
                 </ul>
             </nav>
-            
+
             <center><div class="id">
                     <b> ${sessionScope.login}</b>
                 </div></center>
@@ -230,18 +226,18 @@
             <hr>
             <form action="./busca.jsp" method="get">
                 <div class="container">  
-                    <input type="search" class="busca" name="q" placeholder="Busca...">
+                    <input type="search" class="busca" name="q" placeholder="<%=busca%>">
                     <button class="btnn" type="submit"><img class="imgbusca" src="images/search.png"></button>
                 </div>
 
             </form>
             <hr>
-
-            <%  
+            <%
                 Connection con = ConnectionFactory.getConnection();
                 try {
-                    PreparedStatement ps = con.prepareStatement("SELECT * FROM publicacao");
-                    
+                    PreparedStatement ps = con.prepareStatement("SELECT * FROM publicacao WHERE pub_titulo LIKE ?");
+                    ps.setString(1,"%"+ busca + "%");
+
                     System.out.println("passei aqui");
                     ResultSet rs = ps.executeQuery();
                     while (rs.next()) {

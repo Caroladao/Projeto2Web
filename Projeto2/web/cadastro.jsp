@@ -74,6 +74,14 @@
 		text-align: center;
 		font-size: 20pt;
 	}
+        .section1 h3{
+                color:white;
+                text-align: center;
+        }
+        .section1 h3:hover{
+                color:red;
+                font-weight: bolder;
+        }
 	.section1 p{
 		color:#b3bfc3;
 		text-align: center;
@@ -176,6 +184,7 @@
             <br>
 			<h1>Cadastro:</h1>
 			<p>Se você está nessa pagina você está prestes a fazer um cadastro</p>
+                        <h3>${sessionScope.mensagem}</h3>
 			
 		
 		

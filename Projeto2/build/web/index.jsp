@@ -79,7 +79,7 @@
 			<form class="fml" method="post" action="./valida">
 				<img class="lg" src="images/log.png">
 				<h1>Login</h1>
-				<input class="formu" type="text" name="login" placeholder="Login">
+				<input class="formu" type="text" name="login" placeholder="Login" autofocus>
 				<h1>Senha</h1>
 				<input class="formu" type="password" name="senha" placeholder="Senha">
 				<input class="bot" type="submit" value="Entrar">

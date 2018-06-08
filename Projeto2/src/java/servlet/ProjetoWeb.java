@@ -62,6 +62,7 @@ public class ProjetoWeb extends HttpServlet {
             request.getSession().setAttribute("cod",ucod);
             request.getSession().setAttribute("nome",nome);
             
+            
             response.sendRedirect("./login");
             
         }else{
