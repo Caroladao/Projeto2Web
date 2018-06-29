@@ -8,6 +8,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="servlet.ConnectionFactory"%>
+<%@page import="com.google.gson.Gson" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="java.sql.Connection"%>
 <%
@@ -20,6 +21,37 @@
     <head>
         <meta charset="utf-8">
         <title>Projeto Web</title>
+        
+    <button id ="refreshButton" style ="position: absolute; left: -9999px">
+    </button>
+        
+      <!--
+      <script>
+        function periodicRefresh(requiredInfo){
+            $('#refreshButton').click();
+            var myInterval = setInterval( function(){
+
+                $.ajax({
+                    url: './home.php',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {ri: requiredInfo},
+                    success: function(response){
+
+                        if(response.success == true){
+                            // atualizar contendo novas informações
+                            var freshData = response.data;
+                            $('#publ').replaceWith(freshData);
+                            clearInterval(myInterval);
+                        }
+
+                    }
+                });
+            // REPEATS EVERY 5 SECONDS UNTIL clearInterval IS CALLED
+            },5000);
+        }
+        </script> -->
+        
     </head>
     <style type="text/css">
         html,body{
@@ -150,6 +182,11 @@
         .imgbusca{
             height: 70%;
         }
+        #carrega{
+            height: 200px;
+            margin: 0 0 2% 0;
+            display: none;
+        }
     </style>
     <body>
         <section class="section1">
@@ -182,20 +219,30 @@
                 </div>
             </form>
             <hr>
+            <center><img id="carrega" src="images/carregando2.gif"></center>
             <div id="publ" class="publ" ></div>
             <script type="text/javascript" charset="utf-8">
                     var container = document.querySelector("#publ");
                     document.querySelector("input")
                             .addEventListener("keyup", function () {
                         var xmlhttp = new XMLHttpRequest();
-                        xmlhttp.open("GET", "busca?q=" + this.value, true);
+                        xmlhttp.open("GET", "busca?q=" + this.value, true); //assincrono
                         xmlhttp.onreadystatechange = function () {
+                            if (xmlhttp.readyState === 4){
+                                $("#carrega").css("display", "block");
+                                $("#publ").css("display", "none");
+                            }
                             if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
-                                container.innerHTML = xmlhttp.responseText;
+                                setTimeout(() =>{
+                                    $("#carrega").css("display", "none");
+                                    $("#publ").css("display", "block");
+                                    container.innerHTML = xmlhttp.responseText;
+                                }, 2000);
                         };
                         xmlhttp.send();
-                    })
+                    });
             </script>
         </section>
     </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </html>

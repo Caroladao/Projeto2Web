@@ -39,7 +39,7 @@
     <context-param>
         <description>File Uplad Location</description>
         <param-name>file_upload</param-name>
-        <param-value>\imagens</param-value>
+        <param-value>\imagens\</param-value>
     </context-param>
     
 </web-app>

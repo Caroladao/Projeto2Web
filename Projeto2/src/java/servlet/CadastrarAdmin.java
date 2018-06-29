@@ -6,7 +6,7 @@
 package servlet;
 
 import java.io.IOException;
-import static java.lang.System.out;
+import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.regex.Matcher;
@@ -32,11 +32,22 @@ public class CadastrarAdmin extends HttpServlet {
         String endereco = request.getParameter("endereco");
         String admin = request.getParameter("adm");
         request.getSession().setAttribute("mensagem", "");
+        
+                     
+        System.out.println("dados: "+nome+" || "+login+" || "+senha+" || "+email+" || "+endereco+" || ");
 
         System.out.println("admin " + admin);
 
         HttpSession session = request.getSession();
-
+        String resposta = null;
+        int adm;
+        
+        if(admin.equals("true")){
+            adm = 1;
+        }else{
+            adm = 0;
+        }
+        
         Boolean op = false;
         boolean vemail = false;
 
@@ -46,27 +57,30 @@ public class CadastrarAdmin extends HttpServlet {
             Connection con = ConnectionFactory.getConnection();
 
             try {
-                String sql = "INSERT INTO usuario VALUES (null,'" + login + "','" + senha + "','" + nome + "','" + email + "','" + endereco + "'," + admin + ")";
+                String sql = "INSERT INTO usuario VALUES (null,?,?,?,?,?,?)";
                 PreparedStatement ps = con.prepareStatement(sql);
-
-                ps.execute();
-
+                ps.setString(1, login);
+                ps.setString(2, senha);
+                ps.setString(3, nome);
+                ps.setString(4, email);
+                ps.setString(5, endereco);
+                ps.setInt(6, adm);
+                ps.executeUpdate();
                 op = true;
-                out.println("usuario cadastrado!");
 
-                ps.close();
             } catch (Exception e) {
                 e.printStackTrace();
+                request.getSession().setAttribute("mensagem","NAO FOI!!");
             }
 
             if (op) {
                 System.out.println("FOOOI!");
-                request.getSession().setAttribute("mensagem","CADASTRADO!!");
+                resposta = "Usuario gravado com sucesso";
                 response.sendRedirect("./cadastroo.jsp");
 
             } else {
                 response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                request.getSession().setAttribute("mensagem","EMAIL OU LOGIN INVÁLIDOS!!!");
+                resposta = "Erro ao gravar usuario";
                 response.sendRedirect("./cadastroo.jsp");
             }
 
@@ -75,6 +89,10 @@ public class CadastrarAdmin extends HttpServlet {
             request.getSession().setAttribute("mensagem", "EMAIL INVÁLIDO!!!");
             response.sendRedirect("./cadastroo.jsp");
         }
+        
+        response.setContentType("application/json");
+        response.getWriter().write((new Gson()).toJson(resposta));
+        System.out.println("resposta -> "+resposta);
 
     }
 
