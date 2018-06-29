@@ -31,9 +31,21 @@ public class Busca extends HttpServlet {
                     "SELECT * FROM publicacao WHERE pub_titulo like ?");
             ps.setString(1, busca + "%");
             ResultSet rs = ps.executeQuery();
-            while (rs.next())
-                writer.println(rs.getString("pub_titulo") + ",");
-           
+            while (rs.next()){
+                writer.println("<p class=\"p1\">");
+                writer.println(rs.getString("pub_titulo"));
+                writer.println("</p>");
+                writer.println("<p class=\"p2\">");
+                writer.println(rs.getString("pub_texto"));
+                writer.println("</p>");
+                String cam, aux = rs.getString("pub_arquivo");
+                int n = aux.lastIndexOf("web");
+                n = n + 3;
+                cam = aux.substring(n);
+                writer.println("<img class=\"imp\" src=\"."+cam+"\">");
+                writer.println("<br><hr>");
+                
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

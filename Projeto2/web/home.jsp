@@ -148,61 +148,7 @@
             border-radius: 5px;
         }
         .imgbusca{
-            height: 100%;
-        }
-
-        @media screen and (max-width: 992px) {
-            .session1{
-                height: auto;
-            }
-            .menu ul{
-                display: none;
-            }
-            img.btn{
-                display: block;
-                width: 10%;
-            }
-            .btn:hover{
-                background-color: #868e93;
-
-            }
-            .botao{
-                padding: 1% 0;
-                width: 35%;
-                font-size: 170%;
-                height: 20%;
-            }
-            .session1 h1{
-                padding: 0 10%;
-                font-size:150%;
-            }
-            .session1 p{
-                text-align: center;
-                font-size: 130%;
-                padding: 0 10% 5% 10%;
-
-            }
-            .session2{
-                width: 90%;
-            }
-            .pp{
-                padding: 5% 0;
-                font-size: 150%;
-                text-align: left;
-            }
-            .p1{
-                padding: 5% 0;
-                font-size: 150%;
-            }
-            .p2{
-                margin: 0 auto;
-                padding: 3% 0;
-                font-size: 130%;
-                color: #565d60;
-                text-align: left;
-                width: 90%;
-            }
-
+            height: 70%;
         }
     </style>
     <body>
@@ -229,62 +175,27 @@
         <section class="section2">
             <p class="pp"><b>Publicações</b></p>
             <hr>
-            <form action="./busca.jsp" method="get">
+            <form method="get">
                 <div class="container">  
-                    <input type="search" class="busca" name="q" placeholder="Busca...">
-                    <ul id="container"></ul>
-                    <button class="btnn" type="submit"><img class="imgbusca" src="images/search.png"></button>
+                    <input type="search" class="busca" name="q" value="" placeholder="Busca...">
+                    <div class="btnn"><img class="imgbusca" src="images/search.png"></div>
                 </div>
-                <script type="text/javascript" charset="utf-8">
-                    var container = document.querySelector("#container");
+            </form>
+            <hr>
+            <div id="publ" class="publ" ></div>
+            <script type="text/javascript" charset="utf-8">
+                    var container = document.querySelector("#publ");
                     document.querySelector("input")
                             .addEventListener("keyup", function () {
                         var xmlhttp = new XMLHttpRequest();
                         xmlhttp.open("GET", "busca?q=" + this.value, true);
                         xmlhttp.onreadystatechange = function () {
-                            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
-                                var publicacoes = xmlhttp.responseText.split(',');
-                                container.innerHTML = "";
-                                for (var i = 0; i < (publicacoes.length - 1); i++) {
-                                    var li = document.createElement("li");
-                                    li.innerHTML = publicacoes[i];
-                                    li.className = "";
-                                    container.appendChild(li);
-                                }
-                            }
+                            if (xmlhttp.readyState === 4 && xmlhttp.status === 200)
+                                container.innerHTML = xmlhttp.responseText;
                         };
                         xmlhttp.send();
-                    });
-                </script>
-
-            </form>
-            <hr>
-
-            <%  
-                Connection con = ConnectionFactory.getConnection();
-                try {
-                    PreparedStatement ps = con.prepareStatement("SELECT * FROM publicacao");
-                    
-                    System.out.println("passei aqui");
-                    ResultSet rs = ps.executeQuery();
-                    while (rs.next()) {
-                        %>  <div class="publ">
-                                <p class="p1"><%=rs.getString("pub_titulo")%></p>
-                                <p class="p2"><%=rs.getString("pub_texto")%></p>
-                            <%  String cam, aux = rs.getString("pub_arquivo");
-                                int n = aux.lastIndexOf("web");
-                                n = n + 3;
-                                cam = aux.substring(n);
-                            %>
-                            <img class="imp" src=".<%=cam%>" >
-                            </div>
-                            <%
-                        }
-                        rs.close();
-                        ps.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    };%>
+                    })
+            </script>
         </section>
     </body>
 </html>
