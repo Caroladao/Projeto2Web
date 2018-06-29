@@ -36,8 +36,7 @@ public class UploadServlet extends HttpServlet {
         HttpSession session = request.getSession();
         int cod = (int) session.getAttribute("cod");
 
-        diretorio = getServletContext().getInitParameter("file_upload");
-        //pegando a pasta do projeto
+        diretorio = getServletContext().getInitParameter("file_upload");        //pegando a pasta do projeto
         String pastaProjeto = getServletContext().getRealPath("");
         String salvarEm = pastaProjeto + diretorio;
         System.out.println("Salvar arquivo em: " + salvarEm);
@@ -49,10 +48,9 @@ public class UploadServlet extends HttpServlet {
         }
 
         isMultipart = ServletFileUpload.isMultipartContent(request);
-        response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         if (!isMultipart) {
-            out.print("arquivo não upou");
+            System.out.print("arquivo não upou");
             return;
         }
         DiskFileItemFactory factory = new DiskFileItemFactory();

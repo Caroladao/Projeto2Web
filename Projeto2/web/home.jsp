@@ -18,6 +18,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <title>Projeto Web</title>
     </head>
     <style type="text/css">
@@ -231,8 +232,30 @@
             <form action="./busca.jsp" method="get">
                 <div class="container">  
                     <input type="search" class="busca" name="q" placeholder="Busca...">
+                    <ul id="container"></ul>
                     <button class="btnn" type="submit"><img class="imgbusca" src="images/search.png"></button>
                 </div>
+                <script type="text/javascript" charset="utf-8">
+                    var container = document.querySelector("#container");
+                    document.querySelector("input")
+                            .addEventListener("keyup", function () {
+                        var xmlhttp = new XMLHttpRequest();
+                        xmlhttp.open("GET", "busca?q=" + this.value, true);
+                        xmlhttp.onreadystatechange = function () {
+                            if (xmlhttp.readyState === 4 && xmlhttp.status === 200) {
+                                var publicacoes = xmlhttp.responseText.split(',');
+                                container.innerHTML = "";
+                                for (var i = 0; i < (publicacoes.length - 1); i++) {
+                                    var li = document.createElement("li");
+                                    li.innerHTML = publicacoes[i];
+                                    li.className = "";
+                                    container.appendChild(li);
+                                }
+                            }
+                        };
+                        xmlhttp.send();
+                    });
+                </script>
 
             </form>
             <hr>

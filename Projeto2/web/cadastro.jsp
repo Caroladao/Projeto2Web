@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+        <meta charset="utf-8">
 	<title>Projeto Web</title>
 </head>
 <style type="text/css">
